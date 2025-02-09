@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard Tester</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #333;
+        }
+        .key {
+            display: inline-block;
+            padding: 20px;
+            margin: 10px;
+            background-color: #ddd;
+            border-radius: 5px;
+            font-size: 20px;
+            color: #333;
+            transition: background-color 0.3s;
+        }
+        .key.pressed {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .output {
+            margin-top: 30px;
+            font-size: 30px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Keyboard Tester</h1>
+    <p>Press any key on your keyboard to see it displayed below:</p>
+
+    <div class="key" id="keyDisplay">Press a Key</div>
+
+    <div class="output" id="keyOutput"></div>
+
+    <script>
+        const keyDisplay = document.getElementById('keyDisplay');
+        const keyOutput = document.getElementById('keyOutput');
+
+        // Event listener to capture key press
+        window.addEventListener('keydown', function(event) {
+            keyDisplay.textContent = `You pressed: ${event.key}`;
+            keyOutput.textContent = `Key: ${event.key}`;
+            keyDisplay.classList.add('pressed');
+        });
+
+        // Event listener to reset the key display when key is released
+        window.addEventListener('keyup', function(event) {
+            keyDisplay.classList.remove('pressed');
+        });
+    </script>
+
+</body>
+</html>
