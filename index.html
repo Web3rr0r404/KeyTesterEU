@@ -5,24 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KeyTester</title>
 
-    <!--
-    Apache License 2.0
+    <!-- Apache License 2.0 -->
+    <!-- Copyright [2025] [Code3rr0r] -->
+    <!-- Licensed under the Apache License, Version 2.0 -->
 
-    Copyright [2025] [Code3rr0r]
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-    -->
-    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -52,6 +38,10 @@
             font-size: 30px;
             font-weight: bold;
         }
+        .modifier-info {
+            font-size: 16px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -59,19 +49,31 @@
     <h1>KeyTester</h1>
     <p>Press any key on your keyboard to see it displayed below:</p>
 
-    <div class="key" id="keyDisplay">Press a Key</div>
+    <div class="key" id="keyDisplay" role="status" aria-live="polite" aria-label="Key Display">Press a Key</div>
 
-    <div class="output" id="keyOutput"></div>
+    <div class="output" id="keyOutput" role="status" aria-live="polite"></div>
+
+    <div class="modifier-info" id="modifierInfo" aria-label="Modifier Keys Information"></div>
 
     <script>
         const keyDisplay = document.getElementById('keyDisplay');
         const keyOutput = document.getElementById('keyOutput');
+        const modifierInfo = document.getElementById('modifierInfo');
 
         // Event listener to capture key press
         window.addEventListener('keydown', function(event) {
             keyDisplay.textContent = `You pressed: ${event.key}`;
-            keyOutput.textContent = `Key: ${event.key}`;
+            keyOutput.textContent = `Key: ${event.key} (Code: ${event.keyCode})`;
             keyDisplay.classList.add('pressed');
+
+            // Display modifier key information
+            let modifiers = [];
+            if (event.shiftKey) modifiers.push("Shift");
+            if (event.ctrlKey) modifiers.push("Ctrl");
+            if (event.altKey) modifiers.push("Alt");
+            if (event.metaKey) modifiers.push("Meta");
+
+            modifierInfo.textContent = modifiers.length ? `Modifiers: ${modifiers.join(", ")}` : "No modifiers pressed";
         });
 
         // Event listener to reset the key display when key is released
