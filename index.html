@@ -78,7 +78,11 @@
         }
     </style>
 </head>
-<h1>KeyTester</h1>
+<body>
+    <h1>KeyTester</h1>
+    <p>Press any key on your keyboard to see it displayed below:</p>
+    <div class="key" id="keyDisplay" role="status" aria-live="polite" aria-label="Key Display">Press a Key</div>
+    <div class="output" id="keyOutput" role="status" aria-live="polite"></div>
 
     <div class="modifier-info" id="modifierInfo" aria-label="Modifier Keys Information"></div>
 
@@ -98,7 +102,14 @@
             keyDisplay.classList.add('pressed');
 
             // Display modifier key information
-@@ -80,6 +111,14 @@ <h1>KeyTester</h1>
+            let modifiers = [];
+            if (event.shiftKey) modifiers.push("Shift");
+            if (event.ctrlKey) modifiers.push("Ctrl");
+            if (event.altKey) modifiers.push("Alt");
+            if (event.metaKey) modifiers.push("Meta");
+            modifierInfo.textContent = modifiers.length ? `Modifiers: ${modifiers.join(", ")}` : "No modifiers pressed";
+        });
+        // Event listener to reset the key display when key is released
         window.addEventListener('keyup', function(event) {
             keyDisplay.classList.remove('pressed');
         });
@@ -113,3 +124,4 @@
     </script>
 
 </body>
+</html>
